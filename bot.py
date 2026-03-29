@@ -138,7 +138,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
 
 def main() -> None:
-    """Start the bot."""
     if not TOKEN:
         raise ValueError("BOT_TOKEN not found. Make sure your .env file is set up correctly.")
 
@@ -148,7 +147,7 @@ def main() -> None:
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     print("Bot is running...")
-    application.run_polling()
+    application.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
 
 
 if __name__ == '__main__':
