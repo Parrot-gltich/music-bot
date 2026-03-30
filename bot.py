@@ -39,11 +39,12 @@ def download_song_as_mp3(song_name: str) -> tuple[str | None, str | None]:
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-        'ffmpeg_location': FFMPEG_PATH,
         'quiet': True,
         'no_warnings': True,
         'default_search': 'ytsearch1',
     }
+    if FFMPEG_PATH:
+        ydl_opts['ffmpeg_location'] = FFMPEG_PATH
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(f"ytsearch1:{song_name}", download=True)
